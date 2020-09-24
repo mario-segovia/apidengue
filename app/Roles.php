@@ -15,4 +15,8 @@ class Roles extends Model
       'nombre',
       'descripcion'
   ];
+
+  public function usuario (){
+        return $this-> hasMany('App\Usuario');
+    }
 }

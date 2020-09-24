@@ -18,4 +18,8 @@ class Entidad extends Model
         'email',
         'observaciones'
     ];
+
+    public function usuario (){
+          return $this-> hasMany('App\Usuario');
+      }
 }
