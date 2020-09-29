@@ -18,6 +18,22 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
     return $request->user();
 });
 */
-Route::apiResource("roles","RolesController");
-Route::apiResource("entidades","EntidadController");
+Route::group([
+    'prefix' => 'auth'
+], function () {
+    Route::post('login', 'AuthController@login');
+    Route::post('signup', 'AuthController@signUp');
+
+    Route::group([
+      'middleware' => 'auth:api'
+    ], function() {
+        Route::get('logout', 'AuthController@logout');
+        Route::get('user', 'AuthController@user');
+        Route::apiResource("entidades","EntidadController");
+    });
+});
+
+
+Route::apiResource("roles","RolesController")->middleware('auth:api');
+
 Route::apiResource("usuarios","UsuarioController");
