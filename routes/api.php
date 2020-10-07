@@ -29,11 +29,12 @@ Route::group([
     ], function() {
         Route::get('logout', 'AuthController@logout');
         Route::get('user', 'AuthController@user');
-        Route::apiResource("entidades","EntidadController");
+
     });
 });
 
 
 Route::apiResource("roles","RolesController")->middleware('auth:api');
-
+Route::apiResource("entidades","EntidadController");
 Route::apiResource("usuarios","UsuarioController");
+Route::apiResource("pacientes","PacienteController");
