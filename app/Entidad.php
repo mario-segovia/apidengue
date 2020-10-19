@@ -22,4 +22,7 @@ class Entidad extends Model
     public function usuario (){
           return $this-> hasMany('App\Usuario');
       }
+      public function caso_positivo (){
+            return $this-> hasMany('App\Caso_positivo');
+        }
 }

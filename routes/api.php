@@ -38,3 +38,5 @@ Route::apiResource("roles","RolesController")->middleware('auth:api');
 Route::apiResource("entidades","EntidadController");
 Route::apiResource("usuarios","UsuarioController");
 Route::apiResource("pacientes","PacienteController");
+Route::apiResource("casos_positivos","CasoPositivoController");
+Route::apiResource("controles","ControlController");

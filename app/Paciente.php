@@ -24,4 +24,8 @@ class Paciente extends Model
       'email',
       'resultado'
   ];
+
+  public function caso_positivo (){
+        return $this-> hasMany('App\Caso_positivo');
+    }
 }
