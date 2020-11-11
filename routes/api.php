@@ -40,3 +40,5 @@ Route::apiResource("usuarios","UsuarioController");
 Route::apiResource("pacientes","PacienteController");
 Route::apiResource("casos_positivos","CasoPositivoController");
 Route::apiResource("controles","ControlController");
+Route::apiResource("denuncias","DenunciaController");
+Route::apiResource("sugerencias","SugerenciaController");

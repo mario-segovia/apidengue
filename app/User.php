@@ -41,4 +41,10 @@ class User extends Authenticatable
     public function caso_positivo (){
           return $this-> hasMany('App\Caso_positivo');
       }
+    public function denuncia (){
+          return $this-> hasMany('App\Denuncia');
+      }
+      public function sugerencia (){
+            return $this-> hasMany('App\Sugerencia');
+        }
 }

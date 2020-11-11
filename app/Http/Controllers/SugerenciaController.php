@@ -2,10 +2,10 @@
 
 namespace App\Http\Controllers;
 
-use App\Roles;
+use App\Sugerencia;
 use Illuminate\Http\Request;
 
-class RolesController extends Controller
+class SugerenciaController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -14,8 +14,8 @@ class RolesController extends Controller
      */
     public function index()
     {
-        $roles = Roles::all();
-        return $roles;
+      $sugerencias = Sugerencia::all();
+      return $sugerencias;
     }
 
     /**
@@ -36,30 +36,29 @@ class RolesController extends Controller
      */
     public function store(Request $request)
     {
-      $roles = Roles::create($request->all());
-      //return $roles;
-      return response(['message' => 'Rol creado exitosamente']);
+      $sugerencia = Sugerencia::create($request->all());
+      return $sugerencia;
     }
 
     /**
      * Display the specified resource.
      *
-     * @param  \App\Roles  $roles
+     * @param  \App\Sugerencia  $sugerencia
      * @return \Illuminate\Http\Response
      */
     public function show( $id)
     {
-      $roles = Roles::find($id);
-      return $roles;
+      $sugerencia = Sugerencia::find($id);
+      return $sugenrencia;
     }
 
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\Roles  $roles
+     * @param  \App\Sugerencia  $sugerencia
      * @return \Illuminate\Http\Response
      */
-    public function edit(Roles $roles)
+    public function edit(Sugerencia $sugerencia)
     {
         //
     }
@@ -68,28 +67,26 @@ class RolesController extends Controller
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Roles  $roles
+     * @param  \App\Sugerencia  $sugerencia
      * @return \Illuminate\Http\Response
      */
     public function update(Request $request, $id)
     {
-      $roles = Roles::find($id);
-      $roles->update($request->all());
-      //return $roles;
-      return response(['message' => 'Rol actualizado exitosamente']);
+      $sugerencia = Sugerencia::find($id);
+      $sugerencia->update($request->all());
+      return $sugerencia;
     }
 
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Roles  $roles
+     * @param  \App\Sugerencia  $sugerencia
      * @return \Illuminate\Http\Response
      */
     public function destroy( $id)
     {
-      $roles = Roles::find($id);
-      $roles->delete();
-      //return $roles;
-      return response(['message' => 'Rol eliminado exitosamente']);
+      $sugerencia = Sugerencia::find($id);
+      $sugerencia->delete();
+      return $sugerencia;
     }
 }
