@@ -34,7 +34,7 @@ Route::group([
 });
 
 
-Route::apiResource("roles","RolesController")->middleware('auth:api');
+
 Route::apiResource("entidades","EntidadController");
 Route::apiResource("usuarios","UsuarioController");
 Route::apiResource("pacientes","PacienteController");

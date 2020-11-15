@@ -22,9 +22,7 @@ class Usuario extends Model
       'id_entidad'
   ];
 
-    public function rol (){
-        return $this-> belongsTo('App\Roles');
-    }
+    
     public function entidad (){
         return $this-> belongsTo('App\Entidad');
     }
