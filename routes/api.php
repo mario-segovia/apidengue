@@ -33,8 +33,9 @@ Route::group([
     });
 });
 
-
-
+Route::post("roles/addrole","RolesController@addroletouser");
+Route::apiResource("roles","RolesController");
+Route::apiResource("permisos","PermissionController");
 Route::apiResource("entidades","EntidadController");
 Route::apiResource("usuarios","UsuarioController");
 Route::apiResource("pacientes","PacienteController");
