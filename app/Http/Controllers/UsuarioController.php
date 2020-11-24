@@ -15,7 +15,7 @@ class UsuarioController extends Controller
     public function index()
     {
       $usuarios = Usuario::all();
-      return $usuarios;
+      return view('rolesindex',compact ('roles'));
     }
 
     /**
@@ -36,8 +36,10 @@ class UsuarioController extends Controller
      */
     public function store(Request $request)
     {
-      $usuarios = Usuario::create($request->all());
-      return $usuarios;
+      $usuario = Usuario::create($request->all()+['id_user'=> '1']);
+      //$fullname = $request->nombre." ".$request->apellido;
+      //$data = ($request->all()+['fullname'=>$fullname]);
+      return $usuario;
     }
 
     /**

@@ -16,7 +16,7 @@ class RolesController extends Controller
     public function index()
     {
         $roles = Role::all();
-        return $roles;
+        return view('rolesindex',compact ('roles'));
     }
 
     /**
@@ -26,9 +26,11 @@ class RolesController extends Controller
      */
     public function addroletouser(Request $request)
     {
-        $rol = Role::find($request->id_rol);
+
         $user = User::find($request->id_user);
+        $rol = Role::find($request->id_rol);
         $user->attachRole($rol);
+
     }
 
     public function removeroletouser(Request $request)
@@ -36,6 +38,12 @@ class RolesController extends Controller
         $rol = Role::find($request->id_rol);
         $user = User::find($request->id_user);
         $user->detachRole($rol);
+    }
+
+
+    public function create()
+    {
+        return view('newroleform');
     }
 
     /**
@@ -48,7 +56,8 @@ class RolesController extends Controller
     {
       $roles = Role::create($request->all());
       //return $roles;
-      return response(['message' => 'Rol creado exitosamente']);
+      //return response(['message' => 'Rol creado exitosamente']);
+      return redirect(route('roles.index'));
     }
 
     /**
@@ -69,9 +78,11 @@ class RolesController extends Controller
      * @param  \App\Roles  $roles
      * @return \Illuminate\Http\Response
      */
-    public function edit(Roles $roles)
+    public function edit($id)
     {
-        //
+        $role = Role::find($id);
+        return view('editroleform')->with('role', $role);
+
     }
 
     /**
@@ -86,7 +97,9 @@ class RolesController extends Controller
       $roles = Role::find($id);
       $roles->update($request->all());
       //return $roles;
-      return response(['message' => 'Rol actualizado exitosamente']);
+      //return response(['message' => 'Rol actualizado exitosamente']);
+      //$mensaje= 'Rol actualizado exitosamente';
+      return redirect(route('roles.index'));
     }
 
     /**
@@ -100,6 +113,7 @@ class RolesController extends Controller
       $roles = Role::find($id);
       $roles->delete();
       //return $roles;
-      return response(['message' => 'Rol eliminado exitosamente']);
+      //return response(['message' => 'Rol eliminado exitosamente']);
+      return redirect(route('roles.index'));
     }
 }

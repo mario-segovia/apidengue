@@ -34,6 +34,7 @@ Route::group([
 });
 
 Route::post("roles/addrole","RolesController@addroletouser");
+Route::post("roles/removerole","RolesController@removeroletouser");
 Route::apiResource("roles","RolesController");
 Route::apiResource("permisos","PermissionController");
 Route::apiResource("entidades","EntidadController");

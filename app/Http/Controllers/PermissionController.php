@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Permission;
+use App\Models\Role;
+use App\User;
 
 class PermissionController extends Controller
 {
@@ -15,7 +17,21 @@ class PermissionController extends Controller
     public function index()
     {
       $permisos = Permission::all();
-      return $permisos;
+      return view('permisosindex',compact ('permisos'));
+    }
+
+    public function addpermtorole(Request $request)
+    {
+        $rol = Role::find($request->id_rol);
+        $Permiso = Permission::find($request->id_perm);
+        $rol->attachPermission($permiso);
+    }
+
+    public function removepermtorole(Request $request)
+    {
+        $rol = Role::find($request->id_rol);
+        $Permiso = Permission::find($request->id_perm);
+        $rol->detachPermission($rol);
     }
 
     /**
@@ -25,7 +41,7 @@ class PermissionController extends Controller
      */
     public function create()
     {
-        //
+        return view('newpermform');
     }
 
     /**
@@ -38,7 +54,8 @@ class PermissionController extends Controller
     {
       $permisos = Permission::create($request->all());
       //return $roles;
-      return response(['message' => 'Permiso creado exitosamente']);
+      //return response(['message' => 'Permiso creado exitosamente']);
+      return redirect(route('permisos.index'));
     }
 
     /**
@@ -61,7 +78,8 @@ class PermissionController extends Controller
      */
     public function edit($id)
     {
-        //
+      $permiso = Permission::find($id);
+      return view('editpermform')->with('permiso', $permiso);
     }
 
     /**
@@ -74,9 +92,10 @@ class PermissionController extends Controller
     public function update(Request $request, $id)
     {
       $permisos = Permission::find($id);
-      $roles->update($request->all());
+      $permisos->update($request->all());
       //return $roles;
-      return response(['message' => 'Permiso actualizado exitosamente']);
+      //return response(['message' => 'Permiso actualizado exitosamente']);
+      return redirect(route('permisos.index'));
     }
 
     /**
@@ -87,9 +106,10 @@ class PermissionController extends Controller
      */
     public function destroy($id)
     {
-      $perrmisos = Permission::find($id);
+      $permisos = Permission::find($id);
       $permisos->delete();
       //return $roles;
-      return response(['message' => 'Permiso eliminado exitosamente']);
+      //return response(['message' => 'Permiso eliminado exitosamente']);
+      return redirect(route('permisos.index'));
     }
 }

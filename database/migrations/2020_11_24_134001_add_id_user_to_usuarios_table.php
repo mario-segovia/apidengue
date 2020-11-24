@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class DeleteIdRolFromUsuarios extends Migration
+class AddIdUserToUsuariosTable extends Migration
 {
     /**
      * Run the migrations.
@@ -14,7 +14,8 @@ class DeleteIdRolFromUsuarios extends Migration
     public function up()
     {
         Schema::table('usuarios', function (Blueprint $table) {
-            $table->dropColumn('id_rol');
+            $table->integer('id_user')->unsigned();
+            $table->foreign('id_user')->references('id')->on('users');
         });
     }
 

@@ -23,10 +23,10 @@ class CreateUsuariosTable extends Migration
             $table->string('telefono');
             $table->string('email');
             $table->string('observaciones');
-            $table->integer('id_rol')->unsigned();
+            //$table->integer('id_rol')->unsigned();
             $table->integer('id_entidad')->unsigned();
             $table->softDeletes();
-            $table->foreign('id_rol')->references('id')->on('roles');
+            //$table->foreign('id_rol')->references('id')->on('roles');
             $table->foreign('id_entidad')->references('id')->on('entidads');
         });
     }

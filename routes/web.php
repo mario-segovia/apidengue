@@ -16,3 +16,10 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', function () {
     return view('welcome');
 });
+
+Route::get('/rolesindex', 'GestionPanelController@rolesindex');
+Route::get('/permisos', 'GestionPanelController@permisosindex');
+Route::get('/nuevorol', 'RolesController@create');
+Route::resource('roles', 'RolesController');
+Route::resource('permisos', 'PermissionController');
+Route::resource('entidades', 'EntidadController');

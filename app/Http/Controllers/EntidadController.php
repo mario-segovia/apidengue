@@ -14,8 +14,8 @@ class EntidadController extends Controller
      */
     public function index()
     {
-      $entidad = Entidad::all();
-      return $entidad;
+      $entidades = Entidad::all();
+      return view('entidadindex',compact ('entidades'));
     }
 
     /**
@@ -25,7 +25,7 @@ class EntidadController extends Controller
      */
     public function create()
     {
-        //
+        return view('newentidadform');
     }
 
     /**
@@ -37,7 +37,7 @@ class EntidadController extends Controller
     public function store(Request $request)
     {
       $entidad = Entidad::create($request->all());
-      return $entidad;
+      return redirect(route('entidades.index'));
     }
 
     /**
@@ -49,7 +49,7 @@ class EntidadController extends Controller
     public function show($id)
     {
       $entidad = Entidad::find($id);
-      return $entidad;
+      return view('showentidadform',compact ('entidad'));
     }
 
     /**
@@ -58,9 +58,10 @@ class EntidadController extends Controller
      * @param  \App\Entidad  $entidad
      * @return \Illuminate\Http\Response
      */
-    public function edit(Entidad $entidad)
+    public function edit( $id)
     {
-        //
+      $entidad = Entidad::find($id);
+      return view('editentidadform')->with('entidad', $entidad);
     }
 
     /**
@@ -74,7 +75,7 @@ class EntidadController extends Controller
     {
       $entidad = Entidad::find($id);
       $entidad->update($request->all());
-      return $entidad;
+      return redirect(route('entidades.index'));
     }
 
     /**
@@ -87,6 +88,6 @@ class EntidadController extends Controller
     {
       $entidad = Entidad::find($id);
       $entidad->delete();
-      return $entidad;
+      return redirect(route('entidades.index'));
     }
 }

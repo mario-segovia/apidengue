@@ -18,12 +18,15 @@ class Usuario extends Model
       'telefono',
       'email',
       'observaciones',
-      'id_rol',
+      'id_user',
       'id_entidad'
   ];
 
-    
+
     public function entidad (){
         return $this-> belongsTo('App\Entidad');
+    }
+    public function user (){
+        return $this-> belongsTo('App\User');
     }
 }
