@@ -7,10 +7,12 @@ use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Passport\HasApiTokens;
 use Laratrust\Traits\LaratrustUserTrait;
+use Illuminate\Database\Eloquent\SoftDeletes;
 
 class User extends Authenticatable
 {
     use Notifiable, HasApiTokens, LaratrustUserTrait;
+    use SoftDeletes;
 
     /**
      * The attributes that are mass assignable.
@@ -50,5 +52,9 @@ class User extends Authenticatable
       }
       public function sugerencia (){
             return $this-> hasMany('App\Sugerencia');
+      }
+
+      public function paciente (){
+            return $this-> hasMany('App\Paciente');
         }
 }

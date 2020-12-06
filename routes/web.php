@@ -23,3 +23,4 @@ Route::get('/nuevorol', 'RolesController@create');
 Route::resource('roles', 'RolesController');
 Route::resource('permisos', 'PermissionController');
 Route::resource('entidades', 'EntidadController');
+Route::resource('usuarios', 'UsuarioController');

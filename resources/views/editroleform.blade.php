@@ -11,7 +11,7 @@
   <title>Roles</title>
 </head>
 <body>
-
+  @include('navbar')
   <div class="container themed-container">
   <div class="row mb-3">
     <div class="col-md-3 themed-grid-col"></div>

@@ -28,4 +28,12 @@ class Paciente extends Model
   public function caso_positivo (){
         return $this-> hasMany('App\Caso_positivo');
     }
+
+    public function user (){
+        return $this-> belongsTo('App\User');
+    }
+
+    public function tipo_prueba (){
+        return $this-> belongsTo('App\TipoPrueba');
+    }
 }

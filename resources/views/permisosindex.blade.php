@@ -11,6 +11,7 @@
   <title>Permisos</title>
 </head>
 <body>
+  @include('navbar')
   <div class="container themed-container">
     <h1>Lista de Permisos</h1>
     <a href="{{ route('permisos.create') }}" class="btn btn-primary">Nuevo Permiso</a>

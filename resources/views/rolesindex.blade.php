@@ -11,6 +11,7 @@
   <title>Roles</title>
 </head>
 <body>
+  @include('navbar')
   <div class="container themed-container">
     <h1>Lista de Roles</h1>
 

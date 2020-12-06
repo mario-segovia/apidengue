@@ -8,48 +8,46 @@
   <!-- Bootstrap CSS -->
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css" integrity="sha384-TX8t27EcRE3e/ihU7zmQxVncDAy5uIKz4rEkgIXeMed4M0jlfIDPvg6uqKI2xXr2" crossorigin="anonymous">
 
-  <title>Roles</title>
+  <title>Usuarios</title>
 </head>
 <body>
   @include('navbar')
   <div class="container themed-container">
-  <div class="row mb-3">
-    <div class="col-md-3 themed-grid-col"></div>
-    <div class="col-md-6 themed-grid-col">
-      <div class="container">
-        <h1>Nuevo Rol</h1>
+    <h1>Lista de Usuarios</h1>
 
-          {{ Form::open(array('route' => 'roles.store'))  }}
-          <div class="form-group col-sm-12">
-            {{ Form::label('display_name', 'Rol:') }}
-            {{ Form::text('name', null,['class' => 'form-control'])  }}
-          </div>
-
-          <div class="form-group col-sm-12">
-            {{ Form::label('titulo', 'Nombre Rol:') }}
-            {{ Form::text('display_name', null,['class' => 'form-control'])  }}
-          </div>
-
-          <!-- Categoria Descripcion Field -->
-          <div class="form-group col-sm-12">
-            {{ Form::label('description', 'Descripcion:') }}
-            {{ Form::textarea('description', null,  ['class' => 'form-control', 'rows'=> 3]) }}
-          </div>
-
-          <!-- Submit Field -->
-          <div class="form-group col-sm-12">
-            {{ Form::submit('Guardar', ['class' => 'btn btn-primary']) }}
-            <a href="{{ route('roles.index') }}" class="btn btn-secondary">Cancelar</a>
-          </div>
-          {{Form::close() }}
-
-      </div>
-
-    </div>
+    <a href="{{ route('usuarios.create') }}" class="btn btn-primary">Nuevo Usuario</a>
+    <table class="table">
+      <thead class="thead-dark">
+        <tr>
+          <th scope="col">Nombre(s) </th>
+          <th scope="col">Apellido(s) </th>
+          <th scope="col">Correo Electronico</th>
+          <th scope="col">direccion</th>
+          <th scope="col">Ver datos</th>
+          <th scope="col">Editar</th>
+          <th scope="col">Eliminar</th>
+        </tr>
+      </thead>
+      <tbody>
+        @foreach($usuarios as $usuario)
+        <tr>
+          <th>{{ $usuario->nombre }}</th>
+          <th>{{ $usuario->apellido }}</th>
+          <td>{{ $usuario->email }}</td>
+          <td>{{ $usuario->direccion }}</td>
+          <td><a href="{{ route('usuarios.show', [$usuario->id]) }}" class="btn btn-info">Ver Datos</a></td>
+          <td><a href="{{ route('usuarios.edit', [$usuario->id]) }}" class="btn btn-warning">Editar</a></td>
+          <td>
+              {{ Form::open(['route' => ['usuarios.destroy', $usuario->id], 'method' => 'delete']) }}
+              {{ Form::button('Borrar', ['type' => 'submit', 'class' => 'btn btn-danger btn-xs', 'onclick' => "return confirm('Estas seguro?')"]) }}
+              {{ Form::close() }}
+          </td>
+        </tr>
+        @endforeach
+      </tbody>
+    </table>
 
   </div>
-
-</div>
 
 
   <!-- Optional JavaScript; choose one of the two! -->

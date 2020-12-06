@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use App\Usuario;
 use Illuminate\Http\Request;
+use App\Entidad;
+use App\User;
 
 class UsuarioController extends Controller
 {
@@ -15,7 +17,7 @@ class UsuarioController extends Controller
     public function index()
     {
       $usuarios = Usuario::all();
-      return view('rolesindex',compact ('roles'));
+      return view('usuariosindex',compact ('usuarios'));
     }
 
     /**
@@ -25,7 +27,9 @@ class UsuarioController extends Controller
      */
     public function create()
     {
-        //
+      $entidades = Entidad::pluck('nombre','id');
+      return view('newusuarioform',compact(
+         'entidades'));
     }
 
     /**
@@ -36,10 +40,23 @@ class UsuarioController extends Controller
      */
     public function store(Request $request)
     {
-      $usuario = Usuario::create($request->all()+['id_user'=> '1']);
+      $request->validate([
+          'nombre' => 'required|string',
+          'apellido' => 'required|string',
+          'email' => 'required|string|email|unique:users',
+          'password' => 'required|string|confirmed'
+      ]);
+
+      $user= User::create([
+          'name' => $request->nombre." ".$request->apellido,
+          'email' => $request->email,
+          'password' => bcrypt($request->password)
+      ]);
+
+      $usuario = Usuario::create($request->except('password','password_confirmation')+['id_user'=> $user->id]);
       //$fullname = $request->nombre." ".$request->apellido;
       //$data = ($request->all()+['fullname'=>$fullname]);
-      return $usuario;
+      return redirect(route('usuarios.index'));
     }
 
     /**
@@ -50,8 +67,12 @@ class UsuarioController extends Controller
      */
     public function show( $id)
     {
-      $usuarios = Usuario::find($id);
-      return $usuarios;
+      $usuario = Usuario::find($id);
+      $entidad = Entidad::find($usuario->id_entidad);
+      $entidad_nombre = $entidad->nombre;
+      //$usuario = Usuario::add ('entidad_nombre',$entidad_nombre);
+      //return $usuario;
+      return view('showusuarioform',compact ('usuario', 'entidad_nombre'));
     }
 
     /**
@@ -60,9 +81,11 @@ class UsuarioController extends Controller
      * @param  \App\Usuario  $usuario
      * @return \Illuminate\Http\Response
      */
-    public function edit(Usuario $usuario)
+    public function edit($id)
     {
-        //
+        $usuario = Usuario::find($id);
+        $entidades = Entidad::pluck('nombre','id');
+        return view('editusuarioform', compact('usuario','entidades'));
     }
 
     /**
@@ -74,9 +97,14 @@ class UsuarioController extends Controller
      */
     public function update(Request $request, $id)
     {
-      $usuarios = Usuario::find($id);
-      $usuarios->update($request->all());
-      return $usuarios;
+      $usuario = Usuario::find($id);
+      $user = User::find($usuario->id_user);
+      if ($usuario->nombre != $request->nombre OR $usuario->apellido != $request->apellido)
+          { $user->update(['name' => $request->nombre." ".$request->apellido]);}
+      if ($usuario->email != $request->email)
+          { $user->update(['email' => $request->email]);}
+      $usuario->update($request->all());
+      return redirect(route('usuarios.index'));
     }
 
     /**
@@ -87,8 +115,10 @@ class UsuarioController extends Controller
      */
     public function destroy( $id)
     {
-      $usuarios = Usuario::find($id);
-      $usuarios->delete();
-      return $usuarios;
+      $usuario = Usuario::find($id);
+      $user = User::find($usuario->id_user);
+      $usuario->delete();
+      $user->delete();
+      return redirect(route('usuarios.index'));
     }
 }
