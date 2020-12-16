@@ -45,3 +45,4 @@ Route::apiResource("controles","ControlController");
 Route::apiResource("denuncias","DenunciaController");
 Route::apiResource("sugerencias","SugerenciaController");
 Route::apiResource("tipo_pruebas","TipoPruebaController");
+Route::apiResource("noticias","NoticiaController");
