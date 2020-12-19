@@ -22,7 +22,8 @@
           <th scope="col">Nombre(s) </th>
           <th scope="col">Apellido(s) </th>
           <th scope="col">Correo Electronico</th>
-          <th scope="col">direccion</th>
+          <th scope="col">Roles</th>
+          <th scope="col">Permisos</th>
           <th scope="col">Ver datos</th>
           <th scope="col">Editar</th>
           <th scope="col">Eliminar</th>
@@ -34,7 +35,8 @@
           <th>{{ $usuario->nombre }}</th>
           <th>{{ $usuario->apellido }}</th>
           <td>{{ $usuario->email }}</td>
-          <td>{{ $usuario->direccion }}</td>
+          <td><a href="{{ route('user_roles', [$usuario->id]) }}" class="btn btn-outline-primary">Roles</a></td>
+          <td><a href="{{ route('user_perm', [$usuario->id]) }}" class="btn btn-outline-success">Permisos</a></td>
           <td><a href="{{ route('usuarios.show', [$usuario->id]) }}" class="btn btn-info">Ver Datos</a></td>
           <td><a href="{{ route('usuarios.edit', [$usuario->id]) }}" class="btn btn-warning">Editar</a></td>
           <td>

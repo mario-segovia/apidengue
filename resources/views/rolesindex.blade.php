@@ -22,6 +22,7 @@
           <th scope="col">Rol</th>
           <th scope="col">Nombre Rol</th>
           <th scope="col">Descripcion de Rol</th>
+          <th scope="col">Permisos</th>
           <th scope="col">Editar</th>
           <th scope="col">Eliminar</th>
         </tr>
@@ -32,6 +33,7 @@
           <th>{{ $role->name }}</th>
           <td>{{ $role->display_name }}</td>
           <td>{{ $role->description }}</td>
+          <td><a href="{{ route('role_perms', [$role->id]) }}" class="btn btn-outline-primary">Permisos</a></td>
           <td><a href="{{ route('roles.edit', [$role->id]) }}" class="btn btn-warning">Editar</a></td>
           <td>
               {{ Form::open(['route' => ['roles.destroy', $role->id], 'method' => 'delete']) }}
