@@ -8,74 +8,46 @@
   <!-- Bootstrap CSS -->
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css" integrity="sha384-TX8t27EcRE3e/ihU7zmQxVncDAy5uIKz4rEkgIXeMed4M0jlfIDPvg6uqKI2xXr2" crossorigin="anonymous">
 
-  <title>Nuevo Usuario</title>
+  <title>Acceso al sistema</title>
 </head>
 <body>
-  @include('navbar')
+
   <div class="container themed-container">
   <div class="row mb-3">
     <div class="col-md-3 themed-grid-col"></div>
     <div class="col-md-6 themed-grid-col">
-      <div class="container">
-        <h1>Nuevo Usuario</h1>
-        @if ($errors->any())
-        <div class="alert alert-danger">
-          <ul>
-            @foreach ($errors->all() as $error)
-            <li>{{ $error }}</li>
-            @endforeach
-          </ul>
-        </div>
-        @endif
+      <div class="container"  >
+        <span class="img-container">
+        <img src="/images/7ma_region_logo.jpg" width="200" height="200"  >
+        </span>
+        <h2>Plataforma de Gestión de Pacientes infectados con Dengue</h2></br>
+        <h1>Acceso al Sistema</h1>
+              @if ($errors->any())
+              <div class="alert alert-danger">
+                <ul>
+                  @foreach ($errors->all() as $error)
+                  <li>{{ $error }}</li>
+                  @endforeach
+                </ul>
+              </div>
+              @endif
 
-          {{ Form::open(array('route' => 'login'))  }}
+          {{ Form::open(array('route' => 'login_check'))  }}
           <div class="form-group col-sm-12">
-            {{ Form::label('nombre', 'Nombre:') }}
-            {{ Form::text('nombre', null,['class' => 'form-control'])  }}
-          </div>
-          <div class="form-group col-sm-12">
-            {{ Form::label('apellido', 'Apellido:') }}
-            {{ Form::text('apellido', null,['class' => 'form-control'])  }}
-          </div>
-
-          <div class="form-group col-sm-12">
-            {{ Form::label('distrito', 'distrito:') }}
-            {{ Form::text('distrito', null,['class' => 'form-control'])  }}
-          </div>
-          <div class="form-group col-sm-12">
-            {{ Form::label('direccion', 'Direccion:') }}
-            {{ Form::text('direccion', null,['class' => 'form-control'])  }}
-          </div>
-          <div class="form-group col-sm-12">
-            {{ Form::label('telefono', 'Telefono:') }}
-            {{ Form::text('telefono', null,['class' => 'form-control'])  }}
-          </div>
-          <div class="form-group col-sm-12">
-            {{ Form::label('email', 'Email:') }}
+            {{ Form::label('email', 'Correo electrónico:') }}
             {{ Form::text('email', null,['class' => 'form-control'])  }}
           </div>
-          <div class="form-group col-sm-6">
-            {!! Form::label('id_entidad', 'Entidad a la que pertenece:') !!}
-            {!! Form::select('id_entidad', $entidades, null, ['class' => 'form-control']) !!}
-          </div>
 
-          <div class="form-group col-sm-12">
-            {{ Form::label('observaciones', 'Observaciones:') }}
-            {{ Form::textarea('observaciones', null,  ['class' => 'form-control', 'rows'=> 3]) }}
-          </div>
           <div class="form-group col-sm-12">
             {{ Form::label('password', 'Contraseña:') }}
             {{ Form::password('password', null,['class' => 'form-control'])  }}
           </div>
-          <div class="form-group col-sm-12">
-            {{ Form::label('password_confirmation', 'Repetir Contraseña:') }}
-            {{ Form::password('password_confirmation', null,['class' => 'form-control'])  }}
-          </div>
+
 
           <!-- Submit Field -->
           <div class="form-group col-sm-12">
-            {{ Form::submit('Guardar', ['class' => 'btn btn-primary']) }}
-            <a href="{{ route('usuarios.index') }}" class="btn btn-secondary">Cancelar</a>
+            {{ Form::submit('Ingresar', ['class' => 'btn btn-primary']) }}
+
           </div>
           {{Form::close() }}
 

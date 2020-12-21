@@ -14,18 +14,25 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', function () {
-    return view('welcome');
-});
+    return view('login');
+})->name('login');
 
-Route::get('/user_roles/{id}', 'RolesController@user_roles')->name('user_roles');
-Route::post('/refresh_user_rol/{id}', 'RolesController@refresh_user_roles')->name('refreshroles');
-Route::get('/user_perm/{id}', 'PermissionController@user_perm')->name('user_perm');
-Route::post('/refresh_user_perm/{id}', 'PermissionController@refresh_user_perm')->name('refreshperm');
-Route::get('/role_perms/{id}', 'PermissionController@role_perm')->name('role_perms');
-Route::post('/refresh_role_perms/{id}', 'PermissionController@refresh_role_perm')->name('refreshroleperm');
-Route::get('/permisos', 'GestionPanelController@permisosindex');
-Route::get('/nuevorol', 'RolesController@create');
-Route::resource('roles', 'RolesController');
-Route::resource('permisos', 'PermissionController');
-Route::resource('entidades', 'EntidadController');
-Route::resource('usuarios', 'UsuarioController');
+Route::get('/main_panel', function () {
+    return view('mainpanel');
+})->name('main_panel')->middleware('auth');
+
+Route::post('/login_check', 'GestionPanelController@login')->name('login_check');
+Route::post('/logout', 'GestionPanelController@logout')->name('logout')->middleware('auth');
+
+Route::get('/user_roles/{id}', 'RolesController@user_roles')->name('user_roles')->middleware('auth');
+Route::post('/refresh_user_rol/{id}', 'RolesController@refresh_user_roles')->name('refreshroles')->middleware('auth');
+Route::get('/user_perm/{id}', 'PermissionController@user_perm')->name('user_perm')->middleware('auth');
+Route::post('/refresh_user_perm/{id}', 'PermissionController@refresh_user_perm')->name('refreshperm')->middleware('auth');
+Route::get('/role_perms/{id}', 'PermissionController@role_perm')->name('role_perms')->middleware('auth');
+Route::post('/refresh_role_perms/{id}', 'PermissionController@refresh_role_perm')->name('refreshroleperm')->middleware('auth');
+Route::get('/permisos', 'GestionPanelController@permisosindex')->middleware('auth');
+Route::get('/nuevorol', 'RolesController@create')->middleware('auth');
+Route::resource('roles', 'RolesController')->middleware('auth');
+Route::resource('permisos', 'PermissionController')->middleware('auth');
+Route::resource('entidades', 'EntidadController')->middleware('auth');
+Route::resource('usuarios', 'UsuarioController')->middleware('auth');
