@@ -96,7 +96,7 @@
             <li>Editar Denunciantes</li>
             <li>Eliminar Denunciantes</li>
           </ul>
-          <button type="button" class="btn btn-lg btn-block btn-primary">Ir a Denunciantes</button>
+          <a type="button" class="btn btn-lg btn-block btn-primary" href="{{ route('denunciantes_index') }}">Ir a Denunciantes</a>
         </div>
       </div>
         <div class="card mb-4 shadow-sm">

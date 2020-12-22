@@ -28,7 +28,7 @@
         </div>
         @endif
 
-          {{ Form::open(array('route' => 'login'))  }}
+          {{ Form::open(array('route' => 'usuarios.store'))  }}
           <div class="form-group col-sm-12">
             {{ Form::label('nombre', 'Nombre:') }}
             {{ Form::text('nombre', null,['class' => 'form-control'])  }}

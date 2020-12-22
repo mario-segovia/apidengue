@@ -22,7 +22,9 @@ class Paciente extends Model
       'latitud',
       'longitud',
       'email',
-      'resultado'
+      'resultado',
+      'user_id',
+      'tipo_prueba_id'
   ];
 
   public function caso_positivo (){

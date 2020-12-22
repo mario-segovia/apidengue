@@ -6,6 +6,7 @@ use App\Usuario;
 use Illuminate\Http\Request;
 use App\Entidad;
 use App\User;
+use App\Models\Role;
 
 class UsuarioController extends Controller
 {
@@ -18,6 +19,67 @@ class UsuarioController extends Controller
     {
       $usuarios = Usuario::all();
       return view('usuariosindex',compact ('usuarios'));
+    }
+
+    public function denunciantes_index()
+    {
+
+      $users = User::whereRoleIs(['Denunciante'])->get();
+      //$usuarios = Usuario::all();
+      return view('denunciantesindex',compact ('users'));
+
+    }
+
+    public function denunciantes_store(Request $request)
+    {
+      $request->validate([
+          'name' => 'required|string',
+          'email' => 'required|string|email|unique:users',
+          'password' => 'required|string|confirmed'
+      ]);
+
+      $user= User::create([
+          'name' => $request->name,
+          'email' => $request->email,
+          'password' => bcrypt($request->password)
+      ]);
+
+      $user->attachRole('Denunciante');
+
+      return redirect(route('denunciantes_index'));
+    }
+
+    public function denunciantes_edit($id)
+    {
+
+      $user = User::find($id);
+      //$usuarios = Usuario::all();
+      return view('edit_denunciante_form',compact ('user'));
+    }
+
+    public function denunciantes_update(Request $request, $id)
+    {
+      $user = User::find($id);
+      if ($user->name != $request->name)
+          { $user->update(['name' => $request->name]);}
+      if ($user->email != $request->email)
+          {
+            $request->validate(['email' => 'required|string|email|unique:users']);
+            $user->update(['email' => $request->email]);
+          }
+      if ( $request->filled('password'))
+          {
+            $request->validate(['password' => 'required|string|confirmed']);
+            $user->update(['password' => bcrypt($request->password)]);
+          }
+      return redirect(route('denunciantes_index'));
+    }
+
+    public function denunciantes_delete($id)
+    {
+      $user = User::find($id);
+      $user->delete();
+      return redirect(route('denunciantes_index'));
     }
 
     /**
@@ -56,6 +118,23 @@ class UsuarioController extends Controller
       $usuario = Usuario::create($request->except('password','password_confirmation')+['id_user'=> $user->id]);
       //$fullname = $request->nombre." ".$request->apellido;
       //$data = ($request->all()+['fullname'=>$fullname]);
+      return redirect(route('usuarios.index'));
+    }
+
+    public function reset_pass( $id)
+    {
+      $user = User::find($id);
+      return view('reset_pass_form',compact ('user'));
+    }
+
+    public function store_pass(Request $request, $id)
+    {
+      $user = User::find($id);
+      $request->validate([
+          'password' => 'required|string|confirmed'
+      ]);
+      $user->update(['password' => bcrypt($request->password)]);
+
       return redirect(route('usuarios.index'));
     }
 

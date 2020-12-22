@@ -53,6 +53,7 @@
           @endforeach
 
         </br>
+        <h4>________________________________________________</h4>        
 
           {{ Form::label('roles', ' Agregar Roles:') }}
 

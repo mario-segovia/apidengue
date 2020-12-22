@@ -15,6 +15,8 @@ class PacienteController extends Controller
     public function index()
     {
       $pacientes = Paciente::all();
+      //$cryptdata = $this->encriptar($pacientes);
+      //return $cryptdata;
       return $pacientes;
     }
 
@@ -37,7 +39,7 @@ class PacienteController extends Controller
     public function store(Request $request)
     {
       $paciente = Paciente::create($request->all());
-      return $paciente;
+      return response(['mensaje' => 'Paciente creado exitosamente']);
     }
 
     /**
@@ -74,7 +76,7 @@ class PacienteController extends Controller
     {
       $paciente = Paciente::find($id);
       $paciente->update($request->all());
-      return $paciente;
+      return response(['mensaje' => 'Paciente actualizado exitosamente']);
     }
 
     /**
@@ -87,6 +89,6 @@ class PacienteController extends Controller
     {
       $paciente = Paciente::find($id);
       $paciente->delete();
-      return $paciente;
+      return response(['mensaje' => 'Paciente eliminado exitosamente']);
     }
 }

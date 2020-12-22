@@ -26,18 +26,22 @@
           <a class="nav-link" href="{{ route('usuarios.index') }}">Usuarios <span class="sr-only">(current)</span></a>
         </li>
         <li class="nav-item active">
+          <a class="nav-link" href="{{ route('denunciantes_index') }}">Denunciantes <span class="sr-only">(current)</span></a>
+        </li>
+        <li class="nav-item active">
           <a class="nav-link" href="{{ route('roles.index') }}">Roles</a>
         </li>
         <li class="nav-item active">
           <a class="nav-link" href="{{ route('permisos.index') }}">Permisos</a>
         </li>
       </ul>
-
+      <img src="/images/icons/person-circle.svg" alt="" width="25" height="25" title="person-circle">
+      <a class="nav-link" href=" "> </a>
       <span class="navbar-text">
           {{ Auth::user()->name }}
       </span>
 
-        <a class="nav-link" href="{{ route('permisos.index') }}"> </a>
+        <a class="nav-link" href=" "> </a>
 
       {{ Form::open(['route' => ['logout'], 'method' => 'post']) }}
       {{ Form::button('Cerrar Sesión', ['type' => 'submit', 'class' => 'btn btn-primary btn-sm', 'onclick' => "return confirm('Esta seguro de cerrar sesión?')"]) }}

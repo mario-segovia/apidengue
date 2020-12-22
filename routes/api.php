@@ -39,7 +39,7 @@ Route::apiResource("roles","RolesController");
 Route::apiResource("permisos","PermissionController");
 Route::apiResource("entidades","EntidadController");
 Route::apiResource("usuarios","UsuarioController");
-Route::apiResource("pacientes","PacienteController");
+Route::apiResource("pacientes","PacienteController")->middleware('auth:api');
 Route::apiResource("casos_positivos","CasoPositivoController");
 Route::apiResource("controles","ControlController");
 Route::apiResource("denuncias","DenunciaController");

@@ -26,6 +26,7 @@
           <th scope="col">Permisos</th>
           <th scope="col">Ver datos</th>
           <th scope="col">Editar</th>
+          <th scope="col">Cambiar Contraseña</th>
           <th scope="col">Eliminar</th>
         </tr>
       </thead>
@@ -39,6 +40,7 @@
           <td><a href="{{ route('user_perm', [$usuario->id]) }}" class="btn btn-outline-success">Permisos</a></td>
           <td><a href="{{ route('usuarios.show', [$usuario->id]) }}" class="btn btn-info">Ver Datos</a></td>
           <td><a href="{{ route('usuarios.edit', [$usuario->id]) }}" class="btn btn-warning">Editar</a></td>
+          <td><a href="{{ route('reset_pass', [$usuario->id_user]) }}" class="btn btn-outline-warning">Cambiar Contraseña</a></td>
           <td>
               {{ Form::open(['route' => ['usuarios.destroy', $usuario->id], 'method' => 'delete']) }}
               {{ Form::button('Borrar', ['type' => 'submit', 'class' => 'btn btn-danger btn-xs', 'onclick' => "return confirm('Estas seguro?')"]) }}
