@@ -4,7 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Paciente;
 use Illuminate\Http\Request;
-
+use App\TipoPrueba;
 class PacienteController extends Controller
 {
     /**
@@ -25,7 +25,8 @@ class PacienteController extends Controller
      */
     public function create()
     {
-        //
+        $pruebas = TipoPrueba::pluck('nombre','id');
+        return $pruebas;
     }
 
     /**
@@ -85,8 +86,8 @@ class PacienteController extends Controller
      */
     public function destroy( $id)
     {
-      $paciente = Paciente::find($id);
-      $paciente->delete();
-      return $paciente;
+      $pacientes = Paciente::find($id);
+      $pacientes->delete();
+      return $pacientes;
     }
 }

@@ -4,7 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Control;
 use Illuminate\Http\Request;
-
+use App\Caso_positivo;
 class ControlController extends Controller
 {
     /**
@@ -25,7 +25,8 @@ class ControlController extends Controller
      */
     public function create()
     {
-        //
+        $caso_pacientes= Caso_positivo::pluck('paciente_id','id');
+        return $caso_pacientes;
     }
 
     /**

@@ -28,6 +28,10 @@ class CreatePacientesTable extends Migration
             $table->string('longitud');
             $table->string('email');
             $table->string('resultado');
+            $table->integer('usuario')->unsigned();
+            $table->integer('tipo_prueba_id')->unsigned();
+            $table->foreign('usuario')->references('id')->on('users');
+            $table->foreign('tipo_prueba_id')->references('id')->on('tipo_pruebas');
             $table->timestamps();
             $table->softDeletes();
         });

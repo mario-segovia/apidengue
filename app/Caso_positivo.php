@@ -12,8 +12,6 @@ class Caso_positivo extends Model
 
   public $fillable = [
         'paciente_id',
-        'entidad_id',
-        'user_id',
         'codigo',
         'region',
         'codigo_distrito',
@@ -35,10 +33,12 @@ class Caso_positivo extends Model
         'signo_sintoma',
         'vacuna_para_la_influenza',
         'fecha_vacunacion',
-        'viajo_resiente',
+        'viajo_reciente',
         'centro_asistencia_covid',
         'centro_asistencia_pais',
+        //no guarda
         'centro_asistencia_ciudad',
+        //no guarda
         'nombre_centro_asistencia',
         'fecha_asistida',
         'contacto_con_animales',
@@ -50,6 +50,7 @@ class Caso_positivo extends Model
         'toma_de_muestra',
         'laboratorio',
         'nro_planilla',
+        //no guarda
         'anho',
         'responsable_de_carga',
         'usuario_lugar'
