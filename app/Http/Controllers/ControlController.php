@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Control;
 use Illuminate\Http\Request;
 use App\Caso_positivo;
+use DB;
 class ControlController extends Controller
 {
     /**
@@ -13,11 +14,15 @@ class ControlController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function index()
-    {
-      $control = Control::all();
-      return $control;
+   {
+     $control=DB::table('caso_positivos')
+        ->join('pacientes','pacientes.id','=', 'caso_positivos.paciente_id')
+        ->join('controls','controls.paciente_id','=', 'caso_positivos.id')
+        ->select('controls.id','caso_positivos.paciente_id','pacientes.nombre_apellido','controls.fecha_analisis','controls.estado_paciente','controls.recomendacion','controls.fecha_alta')
+            ->where('caso_positivos.deleted_at',null)
+            ->get();
+           return response()->json($control);
     }
-
     /**
      * Show the form for creating a new resource.
      *
@@ -48,11 +53,16 @@ class ControlController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function show( $id)
-    {
-      $control = Control::find($id);
-      return $control;
+   {
+     $control=DB::table('caso_positivos')
+        ->join('pacientes','pacientes.id','=', 'caso_positivos.paciente_id')
+        ->join('controls','controls.paciente_id','=', 'caso_positivos.id')
+        ->select('controls.id','caso_positivos.paciente_id','pacientes.nombre_apellido','controls.fecha_analisis','controls.estado_paciente','controls.recomendacion','controls.fecha_alta','controls.created_at','controls.updated_at')
+            ->where('caso_positivos.deleted_at',null)
+            ->where('controls.id',$id)
+            ->first();
+           return response()->json($control);
     }
-
     /**
      * Show the form for editing the specified resource.
      *

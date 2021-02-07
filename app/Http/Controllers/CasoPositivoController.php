@@ -15,8 +15,12 @@ class CasoPositivoController extends Controller
      */
     public function index()
     {
-      $caso_positivo = Caso_positivo::all();
-      return $caso_positivo;
+     $casoPositivo=DB::table('caso_positivos')
+        ->join('pacientes','pacientes.id','=', 'caso_positivos.paciente_id')
+        ->select('caso_positivos.id','pacientes.nombre_apellido','caso_positivos.codigo','caso_positivos.region','caso_positivos.codigo_distrito','caso_positivos.distrito','caso_positivos.fecha_notificacion','caso_positivos.medico','caso_positivos.media_edad','caso_positivos.residente','caso_positivos.telefono_verificado')
+            ->where('caso_positivos.deleted_at',null)
+            ->get();
+           return response()->json($casoPositivo);
     }
 
     /**

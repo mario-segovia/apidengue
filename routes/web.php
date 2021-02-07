@@ -34,4 +34,15 @@ Route::get('caso_pacientes', 'ControlController@create');
 Route::get('historial_activos', 'HistorialActivoController@activo');
 //Detalles de historial de casos activos.
 Route::get('historial_activos/{id}', ['as' => 'historial_activos', 'uses' => 'HistorialActivoController@detalles']);
-
+//Ruta para consumir los pacientes en mapa y filtrar los positivos y negativos.
+Route::get('mapas', 'MapaController@mapa');
+//Ruta para consumir los pacientes en mapa y filtrar los positivos y negativos.
+Route::get('mapatodopacientes', 'MapatodoController@index');
+//Ruta para obtener los pacientes para los reporetes individuales
+Route::get('reporte_pacientes', 'ReportePacienteController@reporte_paciente');
+//Ruta para obtener los caso positivos para los reporetes individuales
+Route::get('reporte_positivos', 'ReportePositivoController@caso_positivos');
+//Ruta para obtener los controles para los reporetes individuales
+Route::get('reporte_control', 'ReporteControlController@reportecontrol');
+//Ruta para obtener los pacientes para los reportes personalizados
+Route::get('grafico_personalizados', 'GraficoPersonalisadoController@personalizado');
