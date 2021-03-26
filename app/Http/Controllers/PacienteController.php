@@ -4,7 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Paciente;
 use Illuminate\Http\Request;
-
+use Illuminate\Support\Facades\Auth;
 class PacienteController extends Controller
 {
     /**
@@ -14,6 +14,7 @@ class PacienteController extends Controller
      */
     public function index()
     {
+      if (!Auth::user()->hasrole('Admin')){return response(['mensaje'=>'No tiene los permisos necesarios']);};
       $pacientes = Paciente::all();
       //$cryptdata = $this->encriptar($pacientes);
       //return $cryptdata;
