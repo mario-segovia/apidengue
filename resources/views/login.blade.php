@@ -18,7 +18,7 @@
     <div class="col-md-6 themed-grid-col">
       <div class="container"  >
         <span class="img-container">
-        <img src="/images/7ma_region_logo.jpg" width="200" height="200">
+        <img src="images/7ma_region_logo.jpg" width="200" height="200">
         </span>
         <h2>Plataforma de Gestión de Pacientes infectados con Dengue</h2></br>
         <h2>Módulo de Gestión de Usuarios</h2></br>

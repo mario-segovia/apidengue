@@ -46,5 +46,5 @@ Route::get('/permisos', 'GestionPanelController@permisosindex')->middleware('aut
 Route::get('/nuevorol', 'RolesController@create')->middleware('auth');
 Route::resource('roles', 'RolesController')->middleware('auth');
 Route::resource('permisos', 'PermissionController')->middleware('auth');
-Route::resource('entidades', 'EntidadController')->middleware('auth');
-Route::resource('usuarios', 'UsuarioController')->middleware('auth');
+Route::resource('entidades', 'EntidadController');
+Route::resource('usuarios', 'UsuarioController');

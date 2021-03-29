@@ -35,10 +35,10 @@
           <a class="nav-link" href="{{ route('permisos.index') }}">Permisos</a>
         </li>
       </ul>
-      <img src="/images/icons/person-circle.svg" alt="" width="25" height="25" title="person-circle">
+      <img src= "{{url('/images/icons/person-circle.svg')}}" alt="" width="25" height="25" title="person-circle">
       <a class="nav-link" href=" "> </a>
       <span class="navbar-text">
-          {{ Auth::user()->name }}
+
       </span>
 
         <a class="nav-link" href=" "> </a>
