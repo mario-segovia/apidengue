@@ -83,9 +83,9 @@ class CasoPositivoController extends Controller
      */
     public function update(Request $request, $id)
     {
-      $caso_positivo = Caso_positivo::find($id);
-      $caso_positivo->update($request->all());
-      return $caso_positivo;
+       $casoPositivo = Caso_positivo::find($id);
+      $casoPositivo->update($request->all());
+      return $casoPositivo;
     }
 
     /**
