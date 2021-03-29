@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use App\Paciente;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use DB;
+use App\TipoPrueba;
 class PacienteController extends Controller
 {
     /**
@@ -14,11 +16,20 @@ class PacienteController extends Controller
      */
     public function index()
     {
+
       if (!Auth::user()->hasrole('Admin')){return response(['mensaje'=>'No tiene los permisos necesarios']);};
       $pacientes = Paciente::all();
       //$cryptdata = $this->encriptar($pacientes);
       //return $cryptdata;
-      return $pacientes;
+      //return $pacientes;
+
+      $pacientes=DB::table('pacientes')
+        ->join('tipo_pruebas','tipo_pruebas.id','=', 'pacientes.tipo_prueba_id')
+        ->select('pacientes.id','pacientes.nombre_apellido','pacientes.barrio','pacientes.genero','pacientes.resultado','pacientes.tipo_prueba_id','pacientes.fechanac','pacientes.ci','pacientes.telefono','pacientes.grupo_sanguineo','pacientes.email','pacientes.edad','pacientes.enfermedad_referencial','pacientes.usuario','tipo_pruebas.nombre')
+            ->where('pacientes.deleted_at',null)
+            ->get();
+           return response()->json($pacientes);
+
     }
 
     /**
@@ -28,7 +39,8 @@ class PacienteController extends Controller
      */
     public function create()
     {
-        //
+        $pruebas = TipoPrueba::pluck('nombre','id');
+        return $pruebas;
     }
 
     /**
@@ -50,9 +62,14 @@ class PacienteController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function show($id)
-    {
-      $paciente = Paciente::find($id);
-      return $paciente;
+     {
+      $paciente=DB::table('pacientes')
+        ->join('tipo_pruebas','tipo_pruebas.id','=', 'pacientes.tipo_prueba_id')
+        ->select('pacientes.id','pacientes.nombre_apellido','pacientes.barrio','pacientes.genero','pacientes.resultado','pacientes.tipo_prueba_id','pacientes.fechanac','pacientes.ci','pacientes.telefono','pacientes.grupo_sanguineo','pacientes.email','pacientes.edad','pacientes.enfermedad_referencial','pacientes.usuario','tipo_pruebas.nombre','pacientes.latitud','pacientes.longitud','pacientes.created_at','pacientes.updated_at')
+            ->where('pacientes.deleted_at',null)
+            ->where('pacientes.id',$id)
+            ->first();
+           return response()->json($paciente);
     }
 
     /**
@@ -88,8 +105,14 @@ class PacienteController extends Controller
      */
     public function destroy( $id)
     {
+<<<<<<< HEAD
       $paciente = Paciente::find($id);
       $paciente->delete();
       return response(['mensaje' => 'Paciente eliminado exitosamente']);
+=======
+      $pacientes = Paciente::find($id);
+      $pacientes->delete();
+      return $pacientes;
+>>>>>>> e60abb5d4ba7065838514418ff301886b322c24f
     }
 }

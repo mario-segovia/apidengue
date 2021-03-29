@@ -1,0 +1,1 @@
+minima.blade.php

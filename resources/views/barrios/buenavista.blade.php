@@ -1,0 +1,1 @@
+buenavista.blade.php

@@ -36,8 +36,8 @@ class TipoPruebaController extends Controller
      */
     public function store(Request $request)
     {
-      $tipo_prueba = TipoPrueba::create($request->all());
-      return $tipo_prueba;
+      $tipo_pruebas = TipoPrueba::create($request->all());
+      return $tipo_pruebas;
     }
 
     /**

@@ -1,0 +1,1 @@
+infectados.blade.php
