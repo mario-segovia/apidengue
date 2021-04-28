@@ -51,7 +51,7 @@ Route::resource('usuarios', 'UsuarioController');
 //Ruta para mandar los tipos de pruebas en pacientes.
 Route::get('pruebas', 'PacienteController@create');
 //Ruta para mandar los pacientes positivos para crear un caso positivo.
-Route::get('pacientes', 'CasoPositivoController@create');
+Route::get('pacientes', 'CasoPositivoController@create')->middleware('auth:api');
 //Ruta para mandar los pacientes positivos para crear un control.
 Route::get('caso_pacientes', 'ControlController@create');
 
@@ -59,7 +59,7 @@ Route::get('caso_pacientes', 'ControlController@create');
 
 //Ruta para consumir los pacientes activos y tener el historial
 Route::get('/historial/listafallecidos', 'HistorialFallecidoController@listafallecidos');
-//Detalles de historial de casos activos. 
+//Detalles de historial de casos activos.
 Route::get('/historial/detalle_fallecidos/{id}', ['as' => 'detalle_fallecidos', 'uses' => 'HistorialFallecidoController@detalle_fallecido']);
 
 //Ruta para consumir los pacientes activos y tener el historial
@@ -92,7 +92,7 @@ Route::get('/generos/masculino', 'GeneroController@masculino');
 Route::get('/generos/femenino', 'GeneroController@femenino');
 Route::get('/generos/otro', 'GeneroController@otro');
 
-//Recurso para utilizar los barrios 
+//Recurso para utilizar los barrios
 Route::get('/barrios/encarnacion', 'GraficoController@encarnacion');
 Route::get('/barrios/cambyreta', 'GraficoController@cambyreta');
 Route::get('/barrios/ciudadnueva', 'GraficoController@ciudadnueva');

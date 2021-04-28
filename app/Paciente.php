@@ -26,7 +26,7 @@ class Paciente extends Model
       'longitud',
       'email',
       'resultado',
-      'usuario',
+      'user_id',
       'tipo_prueba_id'
 
   ];
@@ -47,7 +47,7 @@ class Paciente extends Model
         'longitud' => 'string',
         'email' => 'string',
         'resultado' => 'string',
-        'usuario' => 'string',
+        'user_id' => 'string',
         'tipo_prueba_id' => 'integer',
     ];
   public function caso_positivo (){

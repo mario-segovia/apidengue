@@ -29,7 +29,7 @@ class User extends Authenticatable
      * @var array
      */
     protected $hidden = [
-        'password', 'remember_token',
+        'password', 'remember_token', 'deleted_at', 'email_verified_at'
     ];
 
     /**
@@ -37,9 +37,10 @@ class User extends Authenticatable
      *
      * @var array
      */
-    protected $casts = [
-        'email_verified_at' => 'datetime',
-    ];
+     protected $casts = [
+         'created_at' => 'datetime:Y-m-d','updated_at'=> 'datetime:Y-m-d'
+     ];
+
 
     public function usuario (){
           return $this-> hasMany('App\Usuario');
@@ -56,5 +57,14 @@ class User extends Authenticatable
 
       public function paciente (){
             return $this-> hasMany('App\Paciente');
-        }
+      }
+
+      public function getEntidadAttribute (){
+
+            $usuario = Usuario::where('id_user', $this->id)->first();
+
+            $entidad = Entidad::find($usuario->id_entidad);
+
+            return $entidad;
+      }
 }

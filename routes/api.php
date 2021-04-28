@@ -18,10 +18,11 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
     return $request->user();
 });
 */
+Route::post('ingresar', 'AuthController@ingresar');
 Route::group([
     'prefix' => 'auth'
 ], function () {
-    Route::post('login', 'AuthController@login');
+
     Route::post('signup', 'AuthController@signUp');
 
     Route::group([
@@ -29,7 +30,8 @@ Route::group([
     ], function() {
         Route::get('logout', 'AuthController@logout');
         Route::get('user', 'AuthController@user');
-
+        Route::get('user_roles', 'AuthController@user_roles');
+        Route::get('user_entidad', 'AuthController@user_entidad');
     });
 });
 
@@ -40,7 +42,7 @@ Route::apiResource("permisos","PermissionController");
 Route::apiResource("entidades","EntidadController");
 Route::apiResource("usuarios","UsuarioController");
 Route::apiResource("pacientes","PacienteController")->middleware('auth:api');
-Route::apiResource("casos_positivos","CasoPositivoController");
+Route::apiResource("casos_positivos","CasoPositivoController")->middleware('auth:api');
 Route::apiResource("controles","ControlController");
 Route::apiResource("denuncias","DenunciaController");
 Route::apiResource("sugerencias","SugerenciaController");

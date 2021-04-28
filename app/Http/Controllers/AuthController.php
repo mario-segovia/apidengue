@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\User;
 use Carbon\Carbon;
+use Illuminate\Support\Facades\Auth;
 
 class AuthController extends Controller
 {
@@ -33,7 +34,7 @@ class AuthController extends Controller
     /**
      * Inicio de sesión y creación de token
      */
-    public function login(Request $request)
+    public function ingresar(Request $request)
     {
         $request->validate([
             'email' => 'required|string|email',
@@ -43,23 +44,27 @@ class AuthController extends Controller
 
         $credentials = request(['email', 'password']);
 
-        if (!auth()->attempt($credentials))
+
+
+        if (!Auth::attempt($credentials)){
             return response()->json([
                 'message' => 'Unauthorized'
-            ], 401);
+            ], 401);}
 
-        $user = $request->user();
-        $tokenResult = $user->createToken('Personal Access Token');
+        $user = Auth::user();
+
+       $tokenResult = $user->createToken('Personal Access Token');
 
         $token = $tokenResult->token;
-        if ($request->remember_me)
-            $token->expires_at = Carbon::now()->addWeeks(1);
+        if ($request->remember_me) {
+            $token->expires_at = Carbon::now()->addWeeks(1);}
         $token->save();
 
+
         return response()->json([
-            'access_token' => $tokenResult->accessToken,
-            'token_type' => 'Bearer',
-            'expires_at' => Carbon::parse($token->expires_at)->toDateTimeString()
+           'access_token' => $tokenResult->accessToken,
+           'token_type' => 'Bearer',
+           'expires_at' => Carbon::parse($token->expires_at)->toDateTimeString()
         ]);
     }
 
@@ -81,5 +86,14 @@ class AuthController extends Controller
     public function user(Request $request)
     {
         return response()->json($request->user());
+    }
+
+    public function user_roles(Request $request)
+    {
+        return response()->json($request->user()->getRoles());
+    }
+    public function user_entidad(Request $request)
+    {
+        return response()->json($request->user()->entidad);
     }
 }

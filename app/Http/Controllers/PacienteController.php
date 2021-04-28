@@ -17,19 +17,28 @@ class PacienteController extends Controller
     public function index()
     {
 
-      if (!Auth::user()->hasrole('Admin')){return response(['mensaje'=>'No tiene los permisos necesarios']);};
-      $pacientes = Paciente::all();
+    //  if (!Auth::user()->hasrole('Admin')){return response(['mensaje'=>'No tiene los permisos necesarios']);};
+    //  $pacientes = Paciente::all();
       //$cryptdata = $this->encriptar($pacientes);
       //return $cryptdata;
       //return $pacientes;
-
-      $pacientes=DB::table('pacientes')
-        ->join('tipo_pruebas','tipo_pruebas.id','=', 'pacientes.tipo_prueba_id')
-        ->select('pacientes.id','pacientes.nombre_apellido','pacientes.barrio','pacientes.genero','pacientes.resultado','pacientes.tipo_prueba_id','pacientes.fechanac','pacientes.ci','pacientes.telefono','pacientes.grupo_sanguineo','pacientes.email','pacientes.edad','pacientes.enfermedad_referencial','pacientes.usuario','tipo_pruebas.nombre')
-            ->where('pacientes.deleted_at',null)
-            ->get();
-           return response()->json($pacientes);
-
+      if (Auth::user()->hasrole('admin')){
+          $pacientes=DB::table('pacientes')
+            ->join('tipo_pruebas','tipo_pruebas.id','=', 'pacientes.tipo_prueba_id')
+            ->select('pacientes.id','pacientes.nombre_apellido','pacientes.barrio','pacientes.genero','pacientes.resultado','pacientes.tipo_prueba_id','pacientes.fechanac','pacientes.ci','pacientes.telefono','pacientes.grupo_sanguineo','pacientes.email','pacientes.edad','pacientes.enfermedad_referencial','pacientes.user_id','tipo_pruebas.nombre')
+                ->where('pacientes.deleted_at',null)
+                ->get();
+               return response()->json($pacientes);
+      }
+      else {
+          $pacientes=DB::table('pacientes')
+            ->join('tipo_pruebas','tipo_pruebas.id','=', 'pacientes.tipo_prueba_id')
+            ->select('pacientes.id','pacientes.nombre_apellido','pacientes.barrio','pacientes.genero','pacientes.resultado','pacientes.tipo_prueba_id','pacientes.fechanac','pacientes.ci','pacientes.telefono','pacientes.grupo_sanguineo','pacientes.email','pacientes.edad','pacientes.enfermedad_referencial','pacientes.user_id','tipo_pruebas.nombre')
+                ->where('pacientes.deleted_at',null)
+                ->where('pacientes.user_id', Auth::user()->id)
+                ->get();
+               return response()->json($pacientes);
+      };
     }
 
     /**
@@ -65,7 +74,7 @@ class PacienteController extends Controller
      {
       $paciente=DB::table('pacientes')
         ->join('tipo_pruebas','tipo_pruebas.id','=', 'pacientes.tipo_prueba_id')
-        ->select('pacientes.id','pacientes.nombre_apellido','pacientes.barrio','pacientes.genero','pacientes.resultado','pacientes.tipo_prueba_id','pacientes.fechanac','pacientes.ci','pacientes.telefono','pacientes.grupo_sanguineo','pacientes.email','pacientes.edad','pacientes.enfermedad_referencial','pacientes.usuario','tipo_pruebas.nombre','pacientes.latitud','pacientes.longitud','pacientes.created_at','pacientes.updated_at')
+        ->select('pacientes.id','pacientes.nombre_apellido','pacientes.barrio','pacientes.genero','pacientes.resultado','pacientes.tipo_prueba_id','pacientes.fechanac','pacientes.ci','pacientes.telefono','pacientes.grupo_sanguineo','pacientes.email','pacientes.edad','pacientes.enfermedad_referencial','pacientes.user_id','tipo_pruebas.nombre','pacientes.latitud','pacientes.longitud','pacientes.created_at','pacientes.updated_at')
             ->where('pacientes.deleted_at',null)
             ->where('pacientes.id',$id)
             ->first();
@@ -105,14 +114,9 @@ class PacienteController extends Controller
      */
     public function destroy( $id)
     {
-<<<<<<< HEAD
       $paciente = Paciente::find($id);
       $paciente->delete();
       return response(['mensaje' => 'Paciente eliminado exitosamente']);
-=======
-      $pacientes = Paciente::find($id);
-      $pacientes->delete();
-      return $pacientes;
->>>>>>> e60abb5d4ba7065838514418ff301886b322c24f
+
     }
 }
