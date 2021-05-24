@@ -43,8 +43,27 @@ Route::apiResource("entidades","EntidadController");
 Route::apiResource("usuarios","UsuarioController");
 Route::apiResource("pacientes","PacienteController")->middleware('auth:api');
 Route::apiResource("casos_positivos","CasoPositivoController")->middleware('auth:api');
-Route::apiResource("controles","ControlController");
+Route::apiResource("controles","ControlController")->middleware('auth:api');
 Route::apiResource("denuncias","DenunciaController");
 Route::apiResource("sugerencias","SugerenciaController");
 Route::apiResource("tipo_pruebas","TipoPruebaController");
 Route::apiResource("noticias","NoticiaController");
+Route::apiResource("assets","AssetController");
+
+// Rutas del Portal web de noticias
+Route::get('re', 'PrincipalController@re');
+Route::get('relevante', 'PrincipalController@relevante');
+Route::get('news', 'PrincipalController@noticias');
+Route::get('ultimas', 'PrincipalController@ultimas');
+Route::get('detalles/{id}', ['as' => 'detalle', 'uses' => 'NoticiaController@detalle']);
+Route::get('paciente', 'GraficoController@paciente');
+Route::get('masculino', 'GraficoController@masculino');
+Route::get('femenino', 'GraficoController@femenino');
+Route::get('positivo', 'GraficoController@positivo');
+Route::get('negativo', 'GraficoController@negativo');
+Route::get('fallecido', 'GraficoController@fallecido');
+Route::get('activo', 'GraficoController@activo');
+Route::get('inactivo', 'GraficoController@inactivo');
+Route::get('promedio', 'GraficoController@promedio');
+Route::get('max', 'GraficoController@max');
+Route::get('min', 'GraficoController@minima');

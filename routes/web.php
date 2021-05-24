@@ -53,7 +53,7 @@ Route::get('pruebas', 'PacienteController@create');
 //Ruta para mandar los pacientes positivos para crear un caso positivo.
 Route::get('pacientes', 'CasoPositivoController@create')->middleware('auth:api');
 //Ruta para mandar los pacientes positivos para crear un control.
-Route::get('caso_pacientes', 'ControlController@create');
+Route::get('caso_pacientes', 'ControlController@create')->middleware('auth:api');
 
 //Recursos para obtener el hisotrial de los casos.
 
@@ -77,11 +77,11 @@ Route::get('mapas', 'MapaController@mapa');
 //Ruta para consumir los pacientes en mapa y filtrar los positivos y negativos.
 Route::get('mapatodopacientes', 'MapatodoController@index');
 //Ruta para obtener los pacientes para los reporetes individuales
-Route::get('reporte_pacientes', 'ReportePacienteController@reporte_paciente');
+Route::get('reporte_pacientes', 'ReportePacienteController@reporte_paciente')->middleware('auth:api');
 //Ruta para obtener los caso positivos para los reporetes individuales
-Route::get('reporte_positivos', 'ReportePositivoController@caso_positivos');
+Route::get('reporte_positivos', 'ReportePositivoController@caso_positivos')->middleware('auth:api');
 //Ruta para obtener los controles para los reporetes individuales
-Route::get('reporte_control', 'ReporteControlController@reportecontrol');
+Route::get('reporte_control', 'ReporteControlController@reportecontrol')->middleware('auth:api');
 //Ruta para obtener los pacientes para los reportes personalizados
 Route::get('grafico_personalizados', 'GraficoPersonalisadoController@personalizado');
 

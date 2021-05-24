@@ -15,4 +15,8 @@ class Noticia extends Model
       'imagen',
       'enlace_fuente'
   ];
+
+  protected $casts = [
+      'created_at' => 'datetime:d-m-Y','updated_at'=> 'datetime:d-m-Y'
+  ];
 }

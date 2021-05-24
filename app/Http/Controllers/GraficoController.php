@@ -187,6 +187,62 @@ class GraficoController extends Controller
        ->min('edad');
        return $min;
     }
+
+    // funciones para ortal de $noticias
+
+    public function paciente(){
+    $paciente = Paciente::select(\DB::raw("COUNT(*) as count"))
+                    ->pluck('count');
+                    return $paciente;
+    }
+    public function masculino(){
+    $masculino = Paciente::select(\DB::raw("COUNT(*) as count"))
+                    ->where('pacientes.genero','Masculino')
+                    ->where('pacientes.resultado','Positivo')
+                    ->pluck('count');
+                    return $masculino;
+    }
+    public function femenino(){
+    $femenino = Paciente::select(\DB::raw("COUNT(*) as count"))
+                    ->where('pacientes.genero','Femenino')
+                    ->where('pacientes.resultado','Positivo')
+                    ->pluck('count');
+                    return $femenino;
+    }
+    public function positivo(){
+    $positivo = Paciente::select(\DB::raw("COUNT(*) as count"))
+                    ->where('pacientes.resultado','Positivo')
+                    ->pluck('count');
+                    return $positivo;
+    }
+    public function negativo(){
+    $negativo = Paciente::select(\DB::raw("COUNT(*) as count"))
+                    ->where('pacientes.resultado','Negativo')
+                    ->pluck('count');
+                    return $negativo;
+    }
+    public function fallecido(){
+    $fallecido = Control::select(DB::raw("COUNT(*) as count"))
+        ->where('controls.estado_paciente','Fallecido')
+        ->groupBy(\DB::raw("extract(MONTH from created_at)", "=", Carbon::now()->month))
+        ->get()->toArray();
+    $fallecido = array_column($fallecido, 'count');
+    return $fallecido;
+
+    }public function activo(){
+    $activo = Control::select(DB::raw("COUNT(*) as count"))
+        ->where('controls.estado_paciente','Activo')
+        ->groupBy(\DB::raw("extract(MONTH from created_at)", "=", Carbon::now()->month))
+        ->get()->toArray();
+    $activo = array_column($activo, 'count');
+    return $activo;
+
+    }public function inactivo(){
+     $inactivo = Control::select(DB::raw("COUNT(*) as count"))
+        ->where('controls.estado_paciente','Inactivo')
+        ->groupBy(\DB::raw("extract(MONTH from created_at)", "=", Carbon::now()->month))
+        ->get()->toArray();
+    $inactivo = array_column($inactivo, 'count');
+    return $inactivo;
+    }
 }
-
-

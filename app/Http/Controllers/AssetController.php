@@ -2,10 +2,10 @@
 
 namespace App\Http\Controllers;
 
-use App\Noticia;
+use App\Asset;
 use Illuminate\Http\Request;
 
-class NoticiaController extends Controller
+class AssetController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -14,8 +14,8 @@ class NoticiaController extends Controller
      */
     public function index()
     {
-      $noticias = Noticia::all();
-      return $noticias;
+        $assets = Asset::all();
+        return $assets;
     }
 
     /**
@@ -36,29 +36,29 @@ class NoticiaController extends Controller
      */
     public function store(Request $request)
     {
-      $noticia = Noticia::create($request->all());
-      return $noticia;
+      $noticia = Asset::create($request->all());
+      return response(['mensaje' => 'Activo creado exitosamente']);
     }
 
     /**
      * Display the specified resource.
      *
-     * @param  \App\Noticia  $noticia
+     * @param  \App\Asset  $asset
      * @return \Illuminate\Http\Response
      */
     public function show( $id)
     {
-      $noticia = Noticia::find($id);
-      return $noticia;
+        $asset = Asset::find($id);
+        return response()->json($asset);
     }
 
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\Noticia  $noticia
+     * @param  \App\Asset  $asset
      * @return \Illuminate\Http\Response
      */
-    public function edit(Noticia $noticia)
+    public function edit(Asset $asset)
     {
         //
     }
@@ -67,33 +67,26 @@ class NoticiaController extends Controller
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Noticia  $noticia
+     * @param  \App\Asset  $asset
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request,  $id)
+    public function update(Request $request, $id)
     {
-      $noticia = Noticia::find($id);
-      $noticia->update($request->all());
-      return $noticia;
+      $paciente = Asset::find($id);
+      $paciente->update($request->all());
+      return response(['mensaje' => 'Activo actualizado exitosamente']);
     }
 
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Noticia  $noticia
+     * @param  \App\Asset  $asset
      * @return \Illuminate\Http\Response
      */
     public function destroy( $id)
     {
-      $noticia = Noticia::find($id);
-      $noticia->delete();
-      return $noticia;
-    }
-
-    public function detalle ($id){
-     $datos = Noticia::Find($id);
-
-     return $datos;
-
+      $asset = Asset::find($id);
+      $asset->delete();
+      return response(['mensaje' => 'Activo eliminado exitosamente']);
     }
 }

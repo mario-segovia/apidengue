@@ -1,7 +1,7 @@
 <?php
 
 namespace App\Http\Controllers;
-
+use Illuminate\Support\Facades\Auth;
 use App\Control;
 use Illuminate\Http\Request;
 use App\Caso_positivo;
@@ -15,13 +15,27 @@ class ControlController extends Controller
      */
     public function index()
    {
-     $control=DB::table('caso_positivos')
-        ->join('pacientes','pacientes.id','=', 'caso_positivos.paciente_id')
-        ->join('controls','controls.paciente_id','=', 'caso_positivos.id')
-        ->select('controls.id','caso_positivos.paciente_id','pacientes.nombre_apellido','controls.fecha_analisis','controls.estado_paciente','controls.recomendacion','controls.fecha_alta')
-            ->where('caso_positivos.deleted_at',null)
-            ->get();
-           return response()->json($control);
+       if (Auth::user()->hasrole('admin')){
+           $control=DB::table('caso_positivos')
+              ->join('pacientes','pacientes.id','=', 'caso_positivos.paciente_id')
+              ->join('controls','controls.paciente_id','=', 'caso_positivos.id')
+              ->select('controls.id','caso_positivos.paciente_id','pacientes.nombre_apellido','controls.fecha_analisis','controls.estado_paciente','controls.recomendacion','controls.fecha_alta')
+                  ->where('caso_positivos.deleted_at',null)
+                  ->get();
+                 return response()->json($control);
+      }
+
+      else{
+          $control=DB::table('caso_positivos')
+             ->join('pacientes','pacientes.id','=', 'caso_positivos.paciente_id')
+             ->join('controls','controls.paciente_id','=', 'caso_positivos.id')
+             ->select('controls.id','caso_positivos.paciente_id','pacientes.nombre_apellido','controls.fecha_analisis','controls.estado_paciente','controls.recomendacion','controls.fecha_alta')
+                 ->where('caso_positivos.deleted_at',null)
+                 ->where('pacientes.user_id', Auth::user()->id)
+                 ->get();
+                return response()->json($control);
+     };
+
     }
     /**
      * Show the form for creating a new resource.
@@ -30,8 +44,16 @@ class ControlController extends Controller
      */
     public function create()
     {
-        $caso_pacientes= Caso_positivo::pluck('paciente_id','id');
-        return $caso_pacientes;
+        if (Auth::user()->hasrole('admin')){
+              $caso_pacientes= Caso_positivo::pluck('paciente_id','id');
+              //return $caso_pacientes;
+              return response()->json($caso_pacientes);
+        }
+        else{
+              $caso_pacientes= Caso_positivo::where('usuario_lugar','=', Auth::user()->id)->pluck('paciente_id','id');
+              //return $caso_pacientes;
+              return response()->json($caso_pacientes);
+        };
     }
 
     /**
