@@ -24,5 +24,10 @@ class Entidad extends Model
       }
       public function caso_positivo (){
             return $this-> hasMany('App\Caso_positivo');
-        }
+      }
+
+      public function stocks()
+    {
+        return $this->hasMany(Stock::class);
+    }
 }

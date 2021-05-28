@@ -49,6 +49,8 @@ Route::apiResource("sugerencias","SugerenciaController");
 Route::apiResource("tipo_pruebas","TipoPruebaController");
 Route::apiResource("noticias","NoticiaController");
 Route::apiResource("assets","AssetController");
+Route::apiResource("stocks","StockController")->middleware('auth:api');
+Route::apiResource("transactions","TransactionController")->middleware('auth:api');
 
 // Rutas del Portal web de noticias
 Route::get('re', 'PrincipalController@re');
